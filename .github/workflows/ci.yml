@@ -21,7 +21,7 @@ jobs:
       - name: Install
         run: |
           python -m pip install --upgrade pip
-          pip install -e ".[dev]"
+          pip install -e ".[dev,distribution,query]"
       - name: Lint
         run: |
           ruff check .
@@ -29,4 +29,8 @@ jobs:
       - name: Offline tests with coverage (no network; the live smoke test skips itself)
         run: pytest --cov=deltawatch --cov-report=term-missing
       - name: CLI entry point is installed
-        run: deltawatch --help
+        run: |
+          deltawatch --help
+          deltawatch-dist --help
+      - name: Rebuild COGs + STAC catalog from the frozen archive (fails on any invalid or changed file)
+        run: deltawatch-dist build --report-dir build/reports
