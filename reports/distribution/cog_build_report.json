@@ -1,0 +1,1003 @@
+{
+  "config": "config/distribution.yaml",
+  "source_archive": "reference/v0.2/deltawatch_results_v0.2.zip",
+  "source_archive_sha256": "2727cf89f2002f869851a145869ee33ffa10a17d539f3dabf664378b23fd2780",
+  "settings": {
+    "engine": "rio-cogeo",
+    "blocksize": 256,
+    "compress": "DEFLATE",
+    "predictor": {
+      "ndvi": 3,
+      "mask": 2
+    },
+    "overview_levels": 2,
+    "overview_resampling": {
+      "ndvi": "average",
+      "mask": "mode"
+    }
+  },
+  "tool_versions": {
+    "rasterio": "1.5.2",
+    "gdal": "3.12.2",
+    "rio_cogeo": "7.0.4"
+  },
+  "files": [
+    {
+      "date": "2025-03-25",
+      "kind": "ndvi",
+      "path": "2025-03-25/ndvi_2025-03-25.tif",
+      "sha256": "ac5a9b865b7b30663fe128bbe4967bad6b47d74c3e7fc38e22633d6cac4549e2",
+      "size_bytes": 1132496
+    },
+    {
+      "date": "2025-03-25",
+      "kind": "mask",
+      "path": "2025-03-25/valid_2025-03-25.tif",
+      "sha256": "5c533e18101f2d0de462a5d0652edf37f88f364faf5b721dc19238e502222aac",
+      "size_bytes": 4915
+    },
+    {
+      "date": "2025-04-05",
+      "kind": "ndvi",
+      "path": "2025-04-05/ndvi_2025-04-05.tif",
+      "sha256": "b153f98ad648d2f458c66e3abcebf661f7baa908d9f2686bbca9b3e0b590a085",
+      "size_bytes": 1145029
+    },
+    {
+      "date": "2025-04-05",
+      "kind": "mask",
+      "path": "2025-04-05/valid_2025-04-05.tif",
+      "sha256": "f49aa70d888a39a849b777bf839cf8e24f264bef96935e8c51e3779ceed1857e",
+      "size_bytes": 6248
+    },
+    {
+      "date": "2025-04-17",
+      "kind": "ndvi",
+      "path": "2025-04-17/ndvi_2025-04-17.tif",
+      "sha256": "4933e537c866cd25aec6e15b4d4d69040427913da01989eff156d6b74fa68c84",
+      "size_bytes": 1165917
+    },
+    {
+      "date": "2025-04-17",
+      "kind": "mask",
+      "path": "2025-04-17/valid_2025-04-17.tif",
+      "sha256": "d1842789a0f2d035cd90d00eea479c4700a9f8e7c69539998b48bc5b0ec31869",
+      "size_bytes": 5277
+    },
+    {
+      "date": "2025-05-02",
+      "kind": "ndvi",
+      "path": "2025-05-02/ndvi_2025-05-02.tif",
+      "sha256": "36b352b5a56c9dc5bf2957f90d2396d5bc69be2a0cfd46ffe6e3935bde7c8e23",
+      "size_bytes": 1156560
+    },
+    {
+      "date": "2025-05-02",
+      "kind": "mask",
+      "path": "2025-05-02/valid_2025-05-02.tif",
+      "sha256": "e8bbd70e764bf09e4e0491b93da577f0a510d49f36c112135a6defda1158fbcb",
+      "size_bytes": 5138
+    },
+    {
+      "date": "2025-05-17",
+      "kind": "ndvi",
+      "path": "2025-05-17/ndvi_2025-05-17.tif",
+      "sha256": "0014cf972d325672a2bcb2c044da1f74d241cb22a5a1fe845022b698b9c58a7c",
+      "size_bytes": 1156377
+    },
+    {
+      "date": "2025-05-17",
+      "kind": "mask",
+      "path": "2025-05-17/valid_2025-05-17.tif",
+      "sha256": "6dc02e2ae2588c9e70cb0fb380182795e0820d040b1088d45c571e6188aa35a9",
+      "size_bytes": 4188
+    },
+    {
+      "date": "2025-05-30",
+      "kind": "ndvi",
+      "path": "2025-05-30/ndvi_2025-05-30.tif",
+      "sha256": "599fa0fa6b8b03f7e079204aa58546ac6378cf74344a14155d390271f8fdba47",
+      "size_bytes": 1156508
+    },
+    {
+      "date": "2025-05-30",
+      "kind": "mask",
+      "path": "2025-05-30/valid_2025-05-30.tif",
+      "sha256": "61b33c6d1c1c91f5f0c2683da69d525270eee998aa055b28081f16ef7f5b8a23",
+      "size_bytes": 10914
+    },
+    {
+      "date": "2025-06-13",
+      "kind": "ndvi",
+      "path": "2025-06-13/ndvi_2025-06-13.tif",
+      "sha256": "d797b2b4731c352cfc8cc24f78077f45e0d72e612530b774cdb398083b91f8bc",
+      "size_bytes": 1157657
+    },
+    {
+      "date": "2025-06-13",
+      "kind": "mask",
+      "path": "2025-06-13/valid_2025-06-13.tif",
+      "sha256": "aef2636e916ae1cf4c0f85289af7a5f245a532feeb5806208d1a31465e6215cc",
+      "size_bytes": 8507
+    },
+    {
+      "date": "2025-06-23",
+      "kind": "ndvi",
+      "path": "2025-06-23/ndvi_2025-06-23.tif",
+      "sha256": "37260c50bc2c42cfd868cc54c11effaada78886dd590b08553701879440d5d9c",
+      "size_bytes": 1170788
+    },
+    {
+      "date": "2025-06-23",
+      "kind": "mask",
+      "path": "2025-06-23/valid_2025-06-23.tif",
+      "sha256": "ac43ae0a483790f3969e624ee557ae5d4f47a951bce4e0c1e77cdf2811bfc061",
+      "size_bytes": 7301
+    }
+  ],
+  "validation": [
+    {
+      "date": "2025-03-25",
+      "kind": "ndvi",
+      "file": "ndvi_2025-03-25.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-03-25",
+      "kind": "mask",
+      "file": "valid_2025-03-25.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-04-05",
+      "kind": "ndvi",
+      "file": "ndvi_2025-04-05.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-04-05",
+      "kind": "mask",
+      "file": "valid_2025-04-05.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-04-17",
+      "kind": "ndvi",
+      "file": "ndvi_2025-04-17.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-04-17",
+      "kind": "mask",
+      "file": "valid_2025-04-17.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-02",
+      "kind": "ndvi",
+      "file": "ndvi_2025-05-02.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-02",
+      "kind": "mask",
+      "file": "valid_2025-05-02.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-17",
+      "kind": "ndvi",
+      "file": "ndvi_2025-05-17.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-17",
+      "kind": "mask",
+      "file": "valid_2025-05-17.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-30",
+      "kind": "ndvi",
+      "file": "ndvi_2025-05-30.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-30",
+      "kind": "mask",
+      "file": "valid_2025-05-30.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-06-13",
+      "kind": "ndvi",
+      "file": "ndvi_2025-06-13.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-06-13",
+      "kind": "mask",
+      "file": "valid_2025-06-13.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-06-23",
+      "kind": "ndvi",
+      "file": "ndvi_2025-06-23.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-06-23",
+      "kind": "mask",
+      "file": "valid_2025-06-23.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "equality": [
+    {
+      "date": "2025-03-25",
+      "kind": "ndvi",
+      "source": "ndvi_2025-03-25.tif",
+      "cog": "ndvi_2025-03-25.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal_nan_aware": true,
+        "nan_positions_equal": true,
+        "bitwise_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "float32",
+        "nodata": "NaN",
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 432,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "AVERAGE",
+        "nan_count": 432
+      }
+    },
+    {
+      "date": "2025-03-25",
+      "kind": "mask",
+      "source": "valid_2025-03-25.tif",
+      "cog": "valid_2025-03-25.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal": true,
+        "mask_values_in_0_1": true,
+        "valid_count_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "uint8",
+        "nodata": 255.0,
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 0,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "MODE",
+        "valid_pixel_count": 275364
+      }
+    },
+    {
+      "date": "2025-04-05",
+      "kind": "ndvi",
+      "source": "ndvi_2025-04-05.tif",
+      "cog": "ndvi_2025-04-05.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal_nan_aware": true,
+        "nan_positions_equal": true,
+        "bitwise_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "float32",
+        "nodata": "NaN",
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 2117,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "AVERAGE",
+        "nan_count": 2117
+      }
+    },
+    {
+      "date": "2025-04-05",
+      "kind": "mask",
+      "source": "valid_2025-04-05.tif",
+      "cog": "valid_2025-04-05.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal": true,
+        "mask_values_in_0_1": true,
+        "valid_count_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "uint8",
+        "nodata": 255.0,
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 0,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "MODE",
+        "valid_pixel_count": 273679
+      }
+    },
+    {
+      "date": "2025-04-17",
+      "kind": "ndvi",
+      "source": "ndvi_2025-04-17.tif",
+      "cog": "ndvi_2025-04-17.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal_nan_aware": true,
+        "nan_positions_equal": true,
+        "bitwise_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "float32",
+        "nodata": "NaN",
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 768,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "AVERAGE",
+        "nan_count": 768
+      }
+    },
+    {
+      "date": "2025-04-17",
+      "kind": "mask",
+      "source": "valid_2025-04-17.tif",
+      "cog": "valid_2025-04-17.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal": true,
+        "mask_values_in_0_1": true,
+        "valid_count_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "uint8",
+        "nodata": 255.0,
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 0,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "MODE",
+        "valid_pixel_count": 275028
+      }
+    },
+    {
+      "date": "2025-05-02",
+      "kind": "ndvi",
+      "source": "ndvi_2025-05-02.tif",
+      "cog": "ndvi_2025-05-02.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal_nan_aware": true,
+        "nan_positions_equal": true,
+        "bitwise_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "float32",
+        "nodata": "NaN",
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 812,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "AVERAGE",
+        "nan_count": 812
+      }
+    },
+    {
+      "date": "2025-05-02",
+      "kind": "mask",
+      "source": "valid_2025-05-02.tif",
+      "cog": "valid_2025-05-02.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal": true,
+        "mask_values_in_0_1": true,
+        "valid_count_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "uint8",
+        "nodata": 255.0,
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 0,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "MODE",
+        "valid_pixel_count": 274984
+      }
+    },
+    {
+      "date": "2025-05-17",
+      "kind": "ndvi",
+      "source": "ndvi_2025-05-17.tif",
+      "cog": "ndvi_2025-05-17.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal_nan_aware": true,
+        "nan_positions_equal": true,
+        "bitwise_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "float32",
+        "nodata": "NaN",
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 0,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "AVERAGE",
+        "nan_count": 0
+      }
+    },
+    {
+      "date": "2025-05-17",
+      "kind": "mask",
+      "source": "valid_2025-05-17.tif",
+      "cog": "valid_2025-05-17.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal": true,
+        "mask_values_in_0_1": true,
+        "valid_count_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "uint8",
+        "nodata": 255.0,
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 0,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "MODE",
+        "valid_pixel_count": 275796
+      }
+    },
+    {
+      "date": "2025-05-30",
+      "kind": "ndvi",
+      "source": "ndvi_2025-05-30.tif",
+      "cog": "ndvi_2025-05-30.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal_nan_aware": true,
+        "nan_positions_equal": true,
+        "bitwise_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "float32",
+        "nodata": "NaN",
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 11062,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "AVERAGE",
+        "nan_count": 11062
+      }
+    },
+    {
+      "date": "2025-05-30",
+      "kind": "mask",
+      "source": "valid_2025-05-30.tif",
+      "cog": "valid_2025-05-30.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal": true,
+        "mask_values_in_0_1": true,
+        "valid_count_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "uint8",
+        "nodata": 255.0,
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 0,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "MODE",
+        "valid_pixel_count": 264734
+      }
+    },
+    {
+      "date": "2025-06-13",
+      "kind": "ndvi",
+      "source": "ndvi_2025-06-13.tif",
+      "cog": "ndvi_2025-06-13.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal_nan_aware": true,
+        "nan_positions_equal": true,
+        "bitwise_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "float32",
+        "nodata": "NaN",
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 6170,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "AVERAGE",
+        "nan_count": 6170
+      }
+    },
+    {
+      "date": "2025-06-13",
+      "kind": "mask",
+      "source": "valid_2025-06-13.tif",
+      "cog": "valid_2025-06-13.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal": true,
+        "mask_values_in_0_1": true,
+        "valid_count_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "uint8",
+        "nodata": 255.0,
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 0,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "MODE",
+        "valid_pixel_count": 269626
+      }
+    },
+    {
+      "date": "2025-06-23",
+      "kind": "ndvi",
+      "source": "ndvi_2025-06-23.tif",
+      "cog": "ndvi_2025-06-23.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal_nan_aware": true,
+        "nan_positions_equal": true,
+        "bitwise_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "float32",
+        "nodata": "NaN",
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 3380,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "AVERAGE",
+        "nan_count": 3380
+      }
+    },
+    {
+      "date": "2025-06-23",
+      "kind": "mask",
+      "source": "valid_2025-06-23.tif",
+      "cog": "valid_2025-06-23.tif",
+      "checks": {
+        "crs_equal": true,
+        "transform_equal": true,
+        "shape_equal": true,
+        "dtype_equal": true,
+        "nodata_equal": true,
+        "gdal_mask_equal": true,
+        "scale_offset_equal": true,
+        "source_tags_preserved": true,
+        "values_equal": true,
+        "mask_values_in_0_1": true,
+        "valid_count_equal": true
+      },
+      "identical": true,
+      "detail": {
+        "shape": [
+          564,
+          489
+        ],
+        "dtype": "uint8",
+        "nodata": 255.0,
+        "crs": "EPSG:32636",
+        "nodata_pixel_count": 0,
+        "cog_overviews": [
+          2,
+          4
+        ],
+        "cog_block_shapes": [
+          [
+            256,
+            256
+          ]
+        ],
+        "cog_compression": "deflate",
+        "cog_overview_resampling_tag": "MODE",
+        "valid_pixel_count": 272416
+      }
+    }
+  ],
+  "pair_semantics": [
+    {
+      "date": "2025-03-25",
+      "same_grid": true,
+      "mask_matches_ndvi_nan": true
+    },
+    {
+      "date": "2025-04-05",
+      "same_grid": true,
+      "mask_matches_ndvi_nan": true
+    },
+    {
+      "date": "2025-04-17",
+      "same_grid": true,
+      "mask_matches_ndvi_nan": true
+    },
+    {
+      "date": "2025-05-02",
+      "same_grid": true,
+      "mask_matches_ndvi_nan": true
+    },
+    {
+      "date": "2025-05-17",
+      "same_grid": true,
+      "mask_matches_ndvi_nan": true
+    },
+    {
+      "date": "2025-05-30",
+      "same_grid": true,
+      "mask_matches_ndvi_nan": true
+    },
+    {
+      "date": "2025-06-13",
+      "same_grid": true,
+      "mask_matches_ndvi_nan": true
+    },
+    {
+      "date": "2025-06-23",
+      "same_grid": true,
+      "mask_matches_ndvi_nan": true
+    }
+  ],
+  "all_valid": true,
+  "all_identical": true,
+  "all_pairs_consistent": true
+}
