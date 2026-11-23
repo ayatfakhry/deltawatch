@@ -26,7 +26,7 @@ code are the same as v0.2.
   usable ≥ 0.70 after one-per-date deduplication, **11 dates selected** (`select_dates` filled 11 of
   12 slots while keeping the 10-day gap; 11 ≥ min 8).
 * **Manifest:** fingerprint `9da69a09541dc51deee59402bff892cc3d0f215d23d82166ba8c03ba0f5faabb`
-  (file SHA-256 `471d90e1…cbe06d`), frozen and recorded in `manifest_freeze_record.json` before
+  (file SHA-256 `471d90e1…cbe06d` for the originally frozen bytes, see the repository note under Files), frozen and recorded in `manifest_freeze_record.json` before
   processing.
 * **Item source:** the STAC API host was not reachable from the build sandbox, so discovery listed
   the public Collection 1 COG bucket (`--item-source bucket`) and read each item's own STAC JSON,
@@ -61,7 +61,7 @@ MAE on the joint support and the block-bootstrap 95 % interval of A−B was belo
 largest during green-up (late June to July), where both baselines under-predict (negative bias)
 because they carry older, lower NDVI forward; B, which averages up to 3 older dates, lags more.
 
-![per-target results](evaluation_per_target.png)
+![per-target results](../../evaluation_per_target.png)
 
 ## Limitations
 
@@ -93,7 +93,17 @@ small CSV/JSON files are tracked.
 
 ## Files
 
-`manifest.json`, `manifest_freeze_record.json`, `screening_all_items.csv`, `context_description.json`,
-`plan.json`, `evaluation_results.json` (everything, with bootstrap intervals), `evaluation_per_target_seed.csv`,
-`evaluation_summary_per_target.csv`, `evaluation_summary.md`, `evaluation_per_target.png`,
-`run/qa_per_date.csv`, `run/run_metadata.json`, `run/qa_ndvi_panel.png`.
+In this folder: `manifest.json`, `manifest_freeze_record.json`, `screening_all_items.csv`,
+`context_description.json`, `plan.json`, `evaluation_per_target_seed.csv`,
+`evaluation_summary_per_target.csv`, `evaluation_summary.md`, `make_figure.py`,
+`run/qa_per_date.csv`, `run/run_metadata.json`.
+
+Stored at the repository root instead (same data, not duplicated here): [`evaluation_results.json`](../../evaluation_results.json)
+(everything, with bootstrap intervals) and [`evaluation_per_target.png`](../../evaluation_per_target.png).
+`run/qa_ndvi_panel.png` (QA image of the 11 dates) is not in this repository copy.
+
+Repository note on the frozen hash: the web upload tool added one trailing newline to the JSON files in
+this folder, so `manifest.json` here is 1 byte longer than the file that was hashed. The
+`manifest_file_sha256` in `manifest_freeze_record.json` and the hash above refer to the original bytes, which
+are in [`manifest.json` at commit a42a43e](https://github.com/ayatfakhry/deltawatch/blob/a42a43e/manifest.json).
+The manifest fingerprint inside the file (`9da69a09...`) is unchanged, and nothing was re-hashed.
