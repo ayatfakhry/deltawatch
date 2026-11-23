@@ -1,0 +1,14 @@
+{
+  "pystac_version": "1.16.1",
+  "stac_version": "1.1.0",
+  "documents_validated": 10,
+  "items": 8,
+  "documents_walked": 10,
+  "links_checked": 60,
+  "broken_links": [],
+  "asset_integrity": {
+    "assets_checked": 24,
+    "mismatches": [],
+    "ok": true
+  }
+}
