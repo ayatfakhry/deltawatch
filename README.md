@@ -202,7 +202,7 @@ The question in v1 is whether the data are handled correctly, not which model is
 - [x] v0.3: real repository layout, benchmark input validation, results-preservation check
 - [x] v0.4: CI workflow in its proper path, float tolerance in the QA comparison, separate new-AOI 2026 evaluation
 - [x] Distribution layer (unreleased): validated COGs with equality proof, static STAC catalog, local query service
-- [ ] Distribution hosting: GitHub Pages Range/CORS check on the live site, then the STAC Browser link
+- [x] Distribution hosting: published on GitHub Pages and checked on 2026-11-23 (Range 206 + CORS, see `reports/distribution/hosting_check.json`). Browse it in STAC Browser: https://radiantearth.github.io/stac-browser/#/external/ayatfakhry.github.io/deltawatch/catalog.json (opened and rendered on 2026-11-23; the NDVI COG draws on the map)
 - [ ] GitHub Actions: the workflow is defined in `.github/workflows/ci.yml`. It has no recorded run yet, so no CI status is claimed here
 
 ## Data, attribution and license
