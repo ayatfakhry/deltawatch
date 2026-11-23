@@ -19,9 +19,14 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "pytest-cov>=5", "ruff==0.16.9"]
+# Distribution layer only (COG + STAC + local query). The NDVI pipeline does not need or import these.
+# Versions are the ones the distribution tests passed with on 2026-11-23; rio-cogeo needs Python >= 3.11.
+distribution = ["rio-cogeo==7.0.4", "pystac[validation]==1.16.1"]
+query = ["fastapi==0.165.0", "uvicorn==0.54.0", "httpx2==2.16.2"]
 
 [project.scripts]
 deltawatch = "deltawatch.pipeline:main"
+deltawatch-dist = "deltawatch.distribution.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
