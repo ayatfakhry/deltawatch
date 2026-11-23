@@ -71,17 +71,84 @@ def compare_rasters(run_dir: Path, ref_geotiffs: Path, dates: list[str]) -> list
     return rows
 
 
+# Float QA columns (fractions, NDVI percentiles, max |NDVI|) are compared with a tolerance because
+# percentile interpolation can differ in the last bits across numpy/Python builds (measured: ~1e-8 on
+# ndvi_p2/ndvi_p98 under Python 3.10). The tolerance is far below any meaningful NDVI or fraction
+# change (QA values are reported to 4 decimals). Integer, text, date, hash and ID columns stay exact.
+QA_FLOAT_RTOL = 1e-6
+QA_FLOAT_ATOL = 1e-9
+
+
 def compare_qa(run_csv: Path, ref_csv: Path) -> dict:
     a, b = pd.read_csv(run_csv), pd.read_csv(ref_csv)
     cols = [c for c in b.columns if c not in QA_IGNORED]
     missing = [c for c in cols if c not in a.columns]
-    equal = not missing and a[cols].equals(b[cols])
-    return {
-        "equal": bool(equal),
+    report = {
+        "equal": False,
         "columns_compared": len(cols),
         "missing_columns": missing,
         "ignored_runtime_columns": list(QA_IGNORED),
+        "float_tolerance": {"rtol": QA_FLOAT_RTOL, "atol": QA_FLOAT_ATOL, "nan_equals_nan": True},
+        "float_columns": {},
+        "exact_columns": [],
+        "failures": [],
     }
+    if missing:
+        return report
+    if len(a) != len(b) or "date" not in b.columns or a["date"].tolist() != b["date"].tolist():
+        report["failures"].append(
+            {
+                "column": "date",
+                "reason": "rows/dates differ",
+                "run": a.get("date", pd.Series()).tolist(),
+                "reference": b["date"].tolist(),
+            }
+        )
+        return report
+    dates = b["date"].astype(str).tolist()
+    for c in cols:
+        x, y = a[c], b[c]
+        if pd.api.types.is_float_dtype(x) or pd.api.types.is_float_dtype(y):
+            if not (pd.api.types.is_numeric_dtype(x) and pd.api.types.is_numeric_dtype(y)):
+                report["failures"].append({"column": c, "reason": "numeric vs non-numeric"})
+                continue
+            xv, yv = x.to_numpy(dtype=float), y.to_numpy(dtype=float)
+            ok = np.isclose(xv, yv, rtol=QA_FLOAT_RTOL, atol=QA_FLOAT_ATOL, equal_nan=True)
+            both = np.isfinite(xv) & np.isfinite(yv)
+            d = np.abs(xv - yv)
+            with np.errstate(divide="ignore", invalid="ignore"):
+                rel = np.where(np.abs(yv) > 0, d / np.abs(yv), np.where(d > 0, np.inf, 0.0))
+            report["float_columns"][c] = {
+                "max_abs_diff": float(d[both].max()) if both.any() else 0.0,
+                "max_rel_diff": float(rel[both].max()) if both.any() else 0.0,
+                "within_tolerance": bool(ok.all()),
+            }
+            if not ok.all():
+                report["failures"].append(
+                    {
+                        "column": c,
+                        "reason": "outside float tolerance",
+                        "dates": [dates[i] for i in np.flatnonzero(~ok)],
+                        "run": [None if np.isnan(v) else float(v) for v in xv[~ok]],
+                        "reference": [None if np.isnan(v) else float(v) for v in yv[~ok]],
+                    }
+                )
+        else:
+            report["exact_columns"].append(c)
+            xs, ys = x.astype(str).tolist(), y.astype(str).tolist()
+            bad = [i for i, (u, v) in enumerate(zip(xs, ys, strict=True)) if u != v]
+            if bad:
+                report["failures"].append(
+                    {
+                        "column": c,
+                        "reason": "exact column differs",
+                        "dates": [dates[i] for i in bad],
+                        "run": [xs[i] for i in bad],
+                        "reference": [ys[i] for i in bad],
+                    }
+                )
+    report["equal"] = not report["failures"]
+    return report
 
 
 def _flatten(d, prefix=""):
