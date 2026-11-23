@@ -4,7 +4,7 @@
 Derived products in this repository (NDVI rasters, masks, QA figures and tables) are generated from
 Copernicus Sentinel-2 Level-2A data.
 
-**Contains modified Copernicus Sentinel data 2025.**
+**Contains modified Copernicus Sentinel data 2025 and 2026.**
 
 Use of Sentinel data is governed by the
 [Legal Notice on the use of Copernicus Sentinel Data and Service Information](https://sentinels.copernicus.eu/documents/247904/690755/Sentinel_Data_Legal_Notice).

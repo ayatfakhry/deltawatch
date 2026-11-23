@@ -68,7 +68,7 @@ Optional online steps:
 - `DELTAWATCH_LIVE=1 pytest tests/live` reads one real COG window anonymously.
 - `deltawatch discover --config config/default.yaml --out outputs/manifest.json` re-runs STAC discovery and freezes a **new** manifest. It never overwrites `examples/manifest.json`.
 
-`deltawatch compare` exits with code 0 only when all 16 NDVI and mask rasters match the reference (values including NaN, CRS, transform, shape, dtype, nodata and provenance tags), the QA table matches, and the benchmark settings and scores match. The only fields it tolerates as different are the documented v0.3 protocol fields.
+`deltawatch compare` exits with code 0 only when all 16 NDVI and mask rasters match the reference (values including NaN, CRS, transform, shape, dtype, nodata and provenance tags), the QA table matches, and the benchmark settings and scores match. The only fields it tolerates as different are the documented v0.3 protocol fields. Since v0.4, float columns of the QA table are compared with `numpy.isclose` (`rtol=1e-6`, `atol=1e-9`, NaN equals NaN) so that tiny percentile differences between numpy builds do not fail the check; integer, text, date, hash and ID columns are still compared exactly, and the report records the tolerance and the largest absolute and relative difference per float column. Rasters and benchmark scores are still compared exactly.
 
 In Google Colab, `notebooks/demo_colab.ipynb` clones this repository, runs the tests and the pipeline, compares the outputs with the reference and bundles the results into one zip. No AWS credentials, API keys, paid services or GPU are needed.
 
@@ -79,6 +79,7 @@ In Google Colab, `notebooks/demo_colab.ipynb` clones this repository, runs the t
 | `src/`, `tests/`, `config/`, `notebooks/`, `pyproject.toml`, `requirements.txt` | **Source** | |
 | `examples/` | **Reference outputs (small)** | Frozen manifest, QA table, panels, run metadata and benchmark results from v0.2. Tests read them, and nothing writes into this folder |
 | `reference/v0.2/` | **Reference outputs (full)** | The v0.2 results archive, including the 16 GeoTIFFs. See [`reference/v0.2/README.md`](reference/v0.2/README.md) |
+| `evaluations/new_aoi_2026/` | **Separate evaluation (v0.4)** | New AOI and 2026 season; frozen manifest, results and limitations. Its GeoTIFFs are git-ignored |
 | `outputs/` | **Generated** | Written by `run`, `benchmark` and `compare`. Git ignores it |
 
 ## Measured results (not targets)
@@ -103,6 +104,8 @@ All of these numbers come from actual runs on 2026-11-23: a free Google Colab CP
 | Offline tests, v0.2 (local and fresh Colab session) | 62 passed, 1 live test skipped by default · 85 % line coverage |
 | Offline tests, v0.3 (fresh local clone, Python 3.11, 3.12 and 3.13; not a GitHub Actions run) | 82 passed, 1 live test skipped by default · 85 % line coverage · ruff lint + format clean |
 | v0.3 results-preservation check (`deltawatch compare`) | 16/16 rasters, QA table and benchmark scores/settings identical to the v0.2 reference |
+| Offline tests, v0.4 (fresh local clone, Python 3.11, 3.12 and 3.13; not a GitHub Actions run) | 100 passed, 1 live test skipped by default · ruff lint + format clean |
+| v0.4 results-preservation check | `all_preserved: true`; every QA float column had a maximum difference of 0 in this run |
 
 Per-date details are in [`examples/qa_per_date.csv`](examples/qa_per_date.csv), and the frozen inputs are in [`examples/manifest.json`](examples/manifest.json). Runtime and memory depend on the network and the machine, so they are measurements of these runs, not guarantees.
 
@@ -140,6 +143,10 @@ Errors are in NDVI units, measured on hidden pixels that both baselines predict.
 
 Reproduce: `deltawatch benchmark --config config/default.yaml --manifest examples/manifest.json --run-dir outputs`. The full results with mask parameters and provenance are in [`examples/benchmark_results.json`](examples/benchmark_results.json).
 
+## Separate evaluation: new AOI, 2026 season (v0.4)
+
+The same two baselines, with unchanged settings, were evaluated on a new area (eastern Delta, `[31.60, 30.60, 31.65, 30.65]`, tile 36RUU) and season (2026-05-20 to 09-30). Every rule (tile choice, date selection, targets, seeds 301–305, block bootstrap) was written in `config/eval_new_aoi_2026.yaml` before discovery, and the manifest was frozen before anything was scored. There were 9 targets × 5 mask layouts, with no failures and nothing dropped. A had a lower MAE than B in all 45 runs, and the gap was largest during the July green-up, when both baselines under-predict. This is one AOI and one season, so there is no pooled number. Details, the full table and the limitations are in [`evaluations/new_aoi_2026/README.md`](evaluations/new_aoi_2026/README.md).
+
 ## Quality policy
 
 - **Usable SCL classes:** 4 (vegetation), 5 (not vegetated), 6 (water). Everything else is excluded. This is a conservative project policy, and SCL is **not** a verified ground-truth cloud mask.
@@ -150,11 +157,12 @@ Reproduce: `deltawatch benchmark --config config/default.yaml --manifest example
 
 ```
 config/default.yaml        single source of truth for discovery and processing
-src/deltawatch/            config, catalog (STAC + selection), raster, manifest, pipeline + CLI, benchmark
+src/deltawatch/            config, catalog (STAC + selection), raster, manifest, pipeline + CLI, benchmark, reference, evaluation
 tests/                     offline tests (synthetic rasters) + tests/live (opt-in smoke test)
 notebooks/demo_colab.ipynb thin notebook calling the package
 examples/                  small v0.2 reference outputs: frozen manifest, QA table, panels, benchmark results
 reference/v0.2/            full v0.2 results archive (GeoTIFFs included) used by `deltawatch compare`
+config/eval_new_aoi_2026.yaml, evaluations/new_aoi_2026/   separate v0.4 evaluation on a new AOI and season
 .github/workflows/ci.yml   GitHub Actions definition: lint + offline tests on Python 3.11-3.13
 ```
 
@@ -177,8 +185,9 @@ The question in v1 is whether the data are handled correctly, not which model is
 - [x] Milestone 3: package, offline tests, CI config, fresh-session run
 - [x] Milestone 4: locked past-only temporal gap-filling benchmark (results above)
 - [x] v0.3: real repository layout, benchmark input validation, results-preservation check
+- [x] v0.4: CI workflow in its proper path, float tolerance in the QA comparison, separate new-AOI 2026 evaluation
 - [ ] GitHub Actions: the workflow is defined in `.github/workflows/ci.yml`. It has no recorded run yet, so no CI status is claimed here
 
 ## Data, attribution and license
 
-Contains modified Copernicus Sentinel data 2025. Accessed through the Element 84 Earth Search STAC API and the Sentinel-2 L2A COGs on the Registry of Open Data on AWS. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The satellite data terms are separate from the code license. The code is released under the [MIT License](LICENSE).
+Contains modified Copernicus Sentinel data 2025 and 2026. Accessed through the Element 84 Earth Search STAC API and the Sentinel-2 L2A COGs on the Registry of Open Data on AWS. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The satellite data terms are separate from the code license. The code is released under the [MIT License](LICENSE).
