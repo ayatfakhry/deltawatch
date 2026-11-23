@@ -362,6 +362,18 @@ def main(argv=None) -> int:
     c.add_argument("--run-dir", default="outputs")
     c.add_argument("--reference", default="reference/v0.2/deltawatch_results_v0.2.zip")
     c.add_argument("--report", default=None, help="write the JSON report here")
+    e = sub.add_parser("evaluate", help="separate multi-target / multi-seed evaluation (new AOI)")
+    e.add_argument("stage", choices=["discover", "describe", "score"])
+    e.add_argument("--config", default="config/eval_new_aoi_2026.yaml")
+    e.add_argument("--out", default="evaluations/new_aoi_2026")
+    e.add_argument("--manifest", default="evaluations/new_aoi_2026/manifest.json")
+    e.add_argument("--run-dir", default="evaluations/new_aoi_2026/run")
+    e.add_argument(
+        "--item-source",
+        choices=["stac", "bucket"],
+        default="stac",
+        help="bucket: list the public COG bucket when the STAC API is unreachable",
+    )
     a = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
     if a.cmd == "compare":
@@ -385,6 +397,23 @@ def main(argv=None) -> int:
         m, screen = discover_and_freeze(cfg, a.out)
         screen.to_csv(Path(a.out).with_name("screening_all_items.csv"), index=False)
         print(f"froze {len(m['items'])} dates -> {a.out} (sha256 {m['fingerprint_sha256'][:16]})")
+    elif a.cmd == "evaluate":
+        from . import evaluation
+
+        if a.stage == "discover":
+            r = evaluation.discover_and_freeze(cfg, Path(a.out), item_source=a.item_source)
+            m = r["manifest"]
+            print(
+                f"tile {m['tile']} aoi {m['aoi']['bbox']}: froze {len(m['items'])} dates "
+                f"(sha256 {m['fingerprint_sha256']})"
+            )
+        elif a.stage == "describe":
+            desc = evaluation.describe_context(cfg, load_manifest(a.manifest), Path(a.run_dir), Path(a.out))
+            for r in desc["per_date"]:
+                print(r["date"], r["ndvi_p5_p25_p50_p75_p95"], r["scl_fraction"])
+        else:
+            res = evaluation.run_evaluation(cfg, load_manifest(a.manifest), Path(a.run_dir), Path(a.out))
+            print(res["_summary"].to_string(index=False))
     elif a.cmd == "benchmark":
         from .benchmark import run_benchmark
 
