@@ -1,5 +1,6 @@
 # Bulk outputs and caches stay out of version control
 outputs/
+build/
 *.tif
 *.tiff
 *.zip
