@@ -3,13 +3,16 @@
 import json
 import shutil
 
+import numpy as np
+import pandas as pd
+import pytest
 import rasterio
 
 from deltawatch.benchmark import run_benchmark
 from deltawatch.config import load_config
 from deltawatch.manifest import load_manifest
 from deltawatch.pipeline import run_core
-from deltawatch.reference import compare_benchmark, compare_to_reference
+from deltawatch.reference import QA_FLOAT_ATOL, QA_FLOAT_RTOL, compare_benchmark, compare_qa, compare_to_reference
 
 
 def _make_reference(scene):
@@ -60,3 +63,63 @@ def test_benchmark_score_change_detected_but_documented_fields_tolerated(scene, 
     legacy.write_text(json.dumps(old))
     r = compare_benchmark(run_json, legacy)
     assert not r["equal_except_documented"] and r["undocumented_differences"] == ["test.scores.latest.mae"]
+
+
+# ---------------------------------------------------------------- v0.4: QA float tolerance
+def _qa_pair(scene, tmp_path):
+    ref = _make_reference(scene)
+    ref_csv = ref / "colab_run" / "qa_per_date.csv"
+    run_csv = tmp_path / "qa_run.csv"
+    return pd.read_csv(ref_csv), ref_csv, run_csv
+
+
+def test_tiny_float_difference_passes(scene, tmp_path):
+    df, ref_csv, run_csv = _qa_pair(scene, tmp_path)
+    df.loc[1, "ndvi_p2"] += 1e-8
+    df.loc[0, "ndvi_p98"] += 1e-8
+    df.to_csv(run_csv, index=False)
+    r = compare_qa(run_csv, ref_csv)
+    assert r["equal"] and r["failures"] == []
+    assert r["float_tolerance"] == {"rtol": QA_FLOAT_RTOL, "atol": QA_FLOAT_ATOL, "nan_equals_nan": True}
+    assert 0 < r["float_columns"]["ndvi_p2"]["max_abs_diff"] < 1e-7
+
+
+def test_meaningful_float_difference_fails_with_column_and_date(scene, tmp_path):
+    df, ref_csv, run_csv = _qa_pair(scene, tmp_path)
+    df.loc[1, "ndvi_p50"] += 1e-3
+    df.to_csv(run_csv, index=False)
+    r = compare_qa(run_csv, ref_csv)
+    assert not r["equal"]
+    f = r["failures"][0]
+    assert f["column"] == "ndvi_p50" and f["dates"] == [df.loc[1, "date"]]
+    assert r["float_columns"]["ndvi_p50"]["max_abs_diff"] == pytest.approx(1e-3, rel=1e-3)
+
+
+@pytest.mark.parametrize(
+    "col,new", [("scl_9", None), ("nodata_red_px", None), ("scale_offset_source", "x"), ("id", "y")]
+)
+def test_integer_or_text_change_fails(scene, tmp_path, col, new):
+    df, ref_csv, run_csv = _qa_pair(scene, tmp_path)
+    if new is None:
+        df.loc[0, col] = df.loc[0, col] + 1  # smallest possible integer change
+    else:
+        df[col] = df[col].astype(object)
+        df.loc[0, col] = str(df.loc[0, col]) + new
+    df.to_csv(run_csv, index=False)
+    r = compare_qa(run_csv, ref_csv)
+    assert not r["equal"] and r["failures"][0]["column"] == col
+    assert col in r["exact_columns"]
+
+
+def test_nan_versus_value_fails(scene, tmp_path):
+    df, ref_csv, run_csv = _qa_pair(scene, tmp_path)
+    df.loc[0, "ndvi_p2"] = np.nan
+    df.to_csv(run_csv, index=False)
+    r = compare_qa(run_csv, ref_csv)
+    assert not r["equal"] and r["failures"][0]["column"] == "ndvi_p2"
+
+
+def test_end_to_end_report_contains_tolerance(scene):
+    ref = _make_reference(scene)
+    rep = compare_to_reference(scene / "run", ref, load_manifest(scene / "manifest.json"))
+    assert rep["all_preserved"] and rep["qa"]["float_tolerance"]["rtol"] == QA_FLOAT_RTOL
