@@ -1,0 +1,44 @@
+name: pages-catalog
+
+# Manual only: publishing is a deliberate step. Run it from the Actions tab after enabling
+# Settings > Pages > Source: GitHub Actions. It rebuilds the COGs + STAC catalog from the frozen
+# archive (never the NDVI pipeline), fails on any invalid or changed file, then deploys.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[distribution]"
+      - name: Build and validate COGs + catalog
+        run: deltawatch-dist build --report-dir build/reports
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/distribution/catalog
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
