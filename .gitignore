@@ -1,0 +1,18 @@
+# Bulk outputs and caches stay out of version control
+outputs/
+*.tif
+*.tiff
+*.zip
+# ...except the frozen reference outputs, which are kept on purpose
+!reference/**/*.zip
+.cache/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+.ipynb_checkpoints/
+# Credentials and personal files
+.env
+*.pem
+*credentials*
