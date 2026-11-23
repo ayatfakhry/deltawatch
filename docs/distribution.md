@@ -92,9 +92,9 @@ This is **a minimal local query service over the static catalog. It is not a STA
 
 Local streaming, verified: `/files` answers Range requests with `206 Partial Content`, and tests compare the first 1,024 bytes with the file. In a manual check, GDAL opened `http://127.0.0.1:8765/files/deltawatch-ndvi/2025-05-30/ndvi_2025-05-30.tif` and read a 64 × 64 window with one HEAD and two `206` range GETs. The window was identical to the local file. No map-tile server (titiler) is included.
 
-## Hosting: GitHub Pages (NOT YET VERIFIED)
+## Hosting: GitHub Pages (published and checked 2026-11-23)
 
-Status: **not published and not verified.** Until the check below passes on the live site, this README promises no streaming and gives no "Browse" link.
+Status: **published and verified once.** The `pages-catalog` workflow deployed to https://ayatfakhry.github.io/deltawatch/catalog.json and `deltawatch-dist check-hosting` passed: the COG answered `206` with a correct `Content-Range` and 1,024 bytes, and the COG and `catalog.json` both sent `Access-Control-Allow-Origin: *`. The evidence is in `reports/distribution/hosting_check.json`. STAC Browser link, opened and rendered on the same day: https://radiantearth.github.io/stac-browser/#/external/ayatfakhry.github.io/deltawatch/catalog.json . Re-run the check after every deployment; GitHub gives no guarantee beyond its documented limits.
 
 1. Make sure the repository is public (Pages on GitHub Free needs a public repository), then set Settings → Pages → Source: **GitHub Actions**.
 2. Run the manual workflow **pages-catalog** (`.github/workflows/pages.yml`). It rebuilds and validates from the frozen archive, then deploys `build/distribution/catalog`.
