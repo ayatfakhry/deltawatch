@@ -66,4 +66,4 @@ def check_host(cog_url: str, catalog_url: str, origin: str) -> dict:
             "Range is a CORS-safelisted header only for a single simple range (bytes=N-M), so this GET "
             "matches what a browser sends without a preflight. Re-run after every deployment."
         ),
-               }
+    }
