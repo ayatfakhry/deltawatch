@@ -1,0 +1,61 @@
+# DeltaWatch configuration: the single source of truth for discovery and processing.
+project: deltawatch
+
+stac:
+  api_url: https://earth-search.aws.element84.com/v1
+  collection: sentinel-2-c1-l2a          # never substitute legacy sentinel-2-l2a
+  max_items: 200
+  discovery_max_scene_cloud_pct: 60      # discovery filter only, NOT an AOI quality measure
+
+aoi:
+  crs: EPSG:4326
+  bbox: [30.90, 30.90, 30.95, 30.95]     # west, south, east, north (public demo area)
+
+time:
+  start: "2025-01-01"
+  end: "2025-06-30"
+
+tile:
+  preferred_mgrs: 36RTV
+
+assets:                                  # STAC asset keys, verified against item metadata
+  red: red
+  nir: nir
+  scl: scl
+
+quality:
+  scl_usable_classes: [4, 5, 6]          # vegetation, not-vegetated, water: project policy, not truth
+  ndvi_denominator_min: 1.0e-4           # reflectance units; nir + red <= this -> invalid
+  require_positive_reflectance: true     # NDVI valid only where red > 0 and nir > 0 (negatives kept + counted)
+  dilation_classes: [3, 8, 9, 10]        # cloud shadow, medium/high cloud, cirrus
+  dilation_radius_px: 2                  # 10 m pixels = 1 native 20 m SCL pixel; effect recorded, not applied
+
+selection:
+  min_usable_fraction: 0.70
+  target_dates: 8
+  min_dates: 6
+  min_gap_days: 10
+  window_start: "2025-03-20"             # see manifest selection_rationale
+  window_end: "2025-06-29"
+
+network:
+  gdal_http_timeout_s: 30
+  gdal_http_max_retry: 3
+  gdal_http_retry_delay_s: 2
+  stac_max_retries: 3
+
+outputs:
+  dir: outputs
+
+# Optional milestone-4 benchmark. Locked BEFORE any baseline was scored (2026-11-23).
+# Synthetic task: hide blocks of genuinely observed target pixels, estimate them from earlier dates only.
+benchmark:
+  max_age_days: 30                       # context older than this is never used
+  median_k: 3                            # baseline B: median of up to 3 most recent earlier valid obs
+  hidden_fraction: 0.10                  # of the target date's eligible (valid) pixels
+  block_px: 20                           # square blocks of 20 x 20 px (200 m), non-overlapping
+  max_block_attempts: 20000
+  # Rule used to pick targets (applied to the frozen dates, not to any score): both need >= 2 earlier
+  # dates within max_age_days; validation = middle such date, test = the last frozen date.
+  validation: {date: "2025-05-17", seed: 101}
+  test: {date: "2025-06-23", seed: 202}

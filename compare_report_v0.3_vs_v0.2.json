@@ -1,0 +1,161 @@
+{
+  "rasters": {
+    "files": 16,
+    "all_equal": true,
+    "per_file": [
+      {
+        "file": "ndvi/ndvi_2025-03-25.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "mask/valid_2025-03-25.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "ndvi/ndvi_2025-04-05.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "mask/valid_2025-04-05.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "ndvi/ndvi_2025-04-17.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "mask/valid_2025-04-17.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "ndvi/ndvi_2025-05-02.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "mask/valid_2025-05-02.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "ndvi/ndvi_2025-05-17.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "mask/valid_2025-05-17.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "ndvi/ndvi_2025-05-30.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "mask/valid_2025-05-30.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "ndvi/ndvi_2025-06-13.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "mask/valid_2025-06-13.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "ndvi/ndvi_2025-06-23.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      },
+      {
+        "file": "mask/valid_2025-06-23.tif",
+        "values_equal": true,
+        "nan_count_equal": true,
+        "grid_equal": true,
+        "dtype_nodata_equal": true,
+        "tags_equal": true
+      }
+    ]
+  },
+  "qa": {
+    "equal": true,
+    "columns_compared": 33,
+    "missing_columns": [],
+    "ignored_runtime_columns": [
+      "seconds",
+      "reused_cached_output"
+    ]
+  },
+  "benchmark": {
+    "equal_except_documented": true,
+    "undocumented_differences": [],
+    "documented_changes_present": [
+      "input_validation.checks",
+      "input_validation.dates",
+      "input_validation.manifest_sha256_from_tags",
+      "input_validation.processing_sha256_from_tags",
+      "input_validation.run_dir_files_checked",
+      "input_validation.verified",
+      "protocol.declared_protocol",
+      "protocol.tuning"
+    ],
+    "fields_compared": 97
+  },
+  "all_preserved": true
+}
