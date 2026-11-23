@@ -1,0 +1,137 @@
+{
+  "tool_versions": {
+    "rasterio": "1.5.2",
+    "gdal": "3.12.2",
+    "rio_cogeo": "7.0.4"
+  },
+  "validation": [
+    {
+      "date": "2025-03-25",
+      "kind": "ndvi",
+      "file": "ndvi_2025-03-25.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-03-25",
+      "kind": "mask",
+      "file": "valid_2025-03-25.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-04-05",
+      "kind": "ndvi",
+      "file": "ndvi_2025-04-05.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-04-05",
+      "kind": "mask",
+      "file": "valid_2025-04-05.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-04-17",
+      "kind": "ndvi",
+      "file": "ndvi_2025-04-17.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-04-17",
+      "kind": "mask",
+      "file": "valid_2025-04-17.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-02",
+      "kind": "ndvi",
+      "file": "ndvi_2025-05-02.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-02",
+      "kind": "mask",
+      "file": "valid_2025-05-02.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-17",
+      "kind": "ndvi",
+      "file": "ndvi_2025-05-17.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-17",
+      "kind": "mask",
+      "file": "valid_2025-05-17.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-30",
+      "kind": "ndvi",
+      "file": "ndvi_2025-05-30.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-05-30",
+      "kind": "mask",
+      "file": "valid_2025-05-30.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-06-13",
+      "kind": "ndvi",
+      "file": "ndvi_2025-06-13.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-06-13",
+      "kind": "mask",
+      "file": "valid_2025-06-13.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-06-23",
+      "kind": "ndvi",
+      "file": "ndvi_2025-06-23.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "date": "2025-06-23",
+      "kind": "mask",
+      "file": "valid_2025-06-23.tif",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    }
+  ]
+    }
