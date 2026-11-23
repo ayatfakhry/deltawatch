@@ -1,0 +1,46 @@
+# DeltaWatch distribution layer: Cloud Optimized GeoTIFFs (+ static STAC catalog in a later step).
+# This file configures packaging only. It never changes the NDVI pipeline, its config or its outputs.
+# The COGs are built from the frozen v0.2 results archive; the NDVI pipeline is never rerun.
+
+source:
+  # Frozen, committed results archive (the same one `deltawatch compare` uses as its reference).
+  archive: reference/v0.2/deltawatch_results_v0.2.zip
+  # The build refuses to run if the archive does not have exactly this SHA-256.
+  archive_sha256: 2727cf89f2002f869851a145869ee33ffa10a17d539f3dabf664378b23fd2780
+  # The archive's dates must equal the frozen manifest's dates; the manifest fingerprint is checked too.
+  manifest: examples/manifest.json
+  ndvi_member: deltawatch_results/geotiffs/ndvi/ndvi_{date}.tif
+  mask_member: deltawatch_results/geotiffs/mask/valid_{date}.tif
+  # Frozen QA table from the same run; the source of eo:cloud_cover and valid_fraction in the catalog.
+  qa_member: deltawatch_results/colab_run/qa_per_date.csv
+
+cog:
+  engine: rio-cogeo  # cog_translate + cog_validate; versions are recorded in every report
+  # 256 px tiles: the grid is only 489 x 564 px, so 512 px tiles would hold the whole image in one
+  # block; 256 px gives 2 x 3 tiles, so a client reading a small window fetches a smaller byte range.
+  blocksize: 256
+  # DEFLATE is lossless and is decoded by GDAL and by the common browser COG readers (geotiff.js),
+  # which a static-hosted catalog needs. Same codec as the source files, so nothing new is introduced.
+  compress: DEFLATE
+  # Horizontal-differencing predictors are lossless and shrink the files; same values as the sources.
+  predictor:
+    ndvi: 3  # floating-point predictor for float32 NDVI
+    mask: 2  # integer predictor for the uint8 mask
+  # Two internal overview levels (/2, /4): 564 -> 282 -> 141 px, the last level fits inside one
+  # 256 px tile, so a full-extent preview never reads full-resolution blocks.
+  overview_levels: 2
+  overview_resampling:
+    # NDVI is continuous: "average" gives a representative coarse value, and GDAL's average skips
+    # nodata (NaN) pixels instead of spreading them. It affects overviews only, never full resolution.
+    ndvi: average
+    # The mask is categorical {0, 1}: "mode" keeps the majority class and can never create a value
+    # that is not in the source (average would produce fractions, bilinear would invent values).
+    mask: mode
+
+thumbnail:
+  # Addition beyond the brief: a small PNG preview per Item (STAC role "thumbnail") so STAC Browser shows
+  # each date without decoding the COG. Rendered from the COG's /2 overview; NaN stays transparent.
+  # It is a picture for browsing, not data: the NDVI asset remains the only source of values.
+  colormap: RdYlGn
+  vmin: -0.2   # fixed for every date so colours are comparable across dates
+  vmax: 0.9
