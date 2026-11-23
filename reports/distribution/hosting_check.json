@@ -1,0 +1,54 @@
+{
+  "checked_at_utc": "2026-11-23T21:59:07.530056+00:00",
+  "origin": "https://radiantearth.github.io",
+  "checks": {
+    "cog_range_status_206": true,
+    "cog_content_range_present": true,
+    "cog_range_body_length": true,
+    "cog_cors_allows_origin": true,
+    "catalog_status_200": true,
+    "catalog_cors_allows_origin": true
+  },
+  "passed": true,
+  "cog_range_request": {
+    "request": {
+      "method": "GET",
+      "url": "https://ayatfakhry.github.io/deltawatch/deltawatch-ndvi/2025-05-30/ndvi_2025-05-30.tif",
+      "headers": {
+        "Range": "bytes=0-1023",
+        "Origin": "https://radiantearth.github.io"
+      }
+    },
+    "status": 206,
+    "headers": {
+      "content-type": "image/tiff",
+      "content-length": "1024",
+      "content-range": "bytes 0-1023/1156508",
+      "accept-ranges": "bytes",
+      "access-control-allow-origin": "*",
+      "cache-control": "max-age=600",
+      "server": "GitHub.com"
+    },
+    "body_bytes": 1024
+  },
+  "catalog_request": {
+    "request": {
+      "method": "GET",
+      "url": "https://ayatfakhry.github.io/deltawatch/catalog.json",
+      "headers": {
+        "Origin": "https://radiantearth.github.io"
+      }
+    },
+    "status": 200,
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "518",
+      "accept-ranges": "bytes",
+      "access-control-allow-origin": "*",
+      "cache-control": "max-age=600",
+      "server": "GitHub.com"
+    },
+    "body_bytes": 518
+  },
+  "note": "Range is a CORS-safelisted header only for a single simple range (bytes=N-M), so this GET matches what a browser sends without a preflight. Re-run after every deployment."
+}
