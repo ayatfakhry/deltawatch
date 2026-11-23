@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented here. Versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+### Added
+- Distribution layer `deltawatch.distribution` with the `deltawatch-dist` CLI (`build`, `cog`, `catalog`,
+  `verify`, `serve`, `check-hosting`) and `config/distribution.yaml`. Optional extras `distribution`
+  and `query`; the pipeline's dependencies are unchanged.
+- COGs from the frozen v0.2 archive: strict rio-cogeo validation, full-resolution bit-for-bit equality
+  proof, NDVI/mask contract check. Reports in `reports/distribution/`.
+- Static STAC 1.1 catalog (1 Collection, 8 Items) with projection, raster, eo, file and classification
+  metadata read from the files; offline schema validation, link walk, asset checksum verification;
+  PNG thumbnails and `item_assets`.
+- Minimal local query service (datetime + bbox, Range-capable file serving). Not a STAC API.
+- `.github/workflows/pages.yml` (manual only) and a Range/CORS hosting check. Hosting not verified yet.
+- 58 new offline tests. CI installs the extras and runs `deltawatch-dist build`.
+
+### Unchanged on purpose
+- Pipeline code, `config/default.yaml`, `config/eval_new_aoi_2026.yaml`, `examples/`, `reference/`.
+
 ## [0.4.0] - 2026-11-23
 ### Changed
 - CI: the workflow now lives at `.github/workflows/ci.yml` and starts with `name: ci`. The copy at the
