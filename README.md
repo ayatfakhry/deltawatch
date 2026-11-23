@@ -147,6 +147,18 @@ Reproduce: `deltawatch benchmark --config config/default.yaml --manifest example
 
 The same two baselines, with unchanged settings, were evaluated on a new area (eastern Delta, `[31.60, 30.60, 31.65, 30.65]`, tile 36RUU) and season (2026-05-20 to 09-30). Every rule (tile choice, date selection, targets, seeds 301–305, block bootstrap) was written in `config/eval_new_aoi_2026.yaml` before discovery, and the manifest was frozen before anything was scored. There were 9 targets × 5 mask layouts, with no failures and nothing dropped. A had a lower MAE than B in all 45 runs, and the gap was largest during the July green-up, when both baselines under-predict. This is one AOI and one season, so there is no pooled number. Details, the full table and the limitations are in [`evaluations/new_aoi_2026/README.md`](evaluations/new_aoi_2026/README.md).
 
+## Distribution layer: COGs, static STAC catalog, local query (unreleased)
+
+A separate package, `deltawatch.distribution`, turns the frozen v0.2 outputs into Cloud Optimized GeoTIFFs and a static STAC catalog, and adds a minimal local query service. It does not run or change the pipeline.
+
+```bash
+pip install -e ".[dev,distribution,query]"   # Python >= 3.11 for these extras
+deltawatch-dist build                         # 16 COGs + STAC catalog + validation reports, from the frozen archive
+deltawatch-dist serve                         # local only: http://127.0.0.1:8000/search?datetime=2025-05-01/2025-05-31
+```
+
+Measured on 2026-11-23: 16/16 COGs pass strict rio-cogeo validation and are bit-for-bit identical to the frozen rasters at full resolution (values, NaN positions, mask, CRS, transform, nodata, provenance tags). The STAC catalog (1 Collection, 8 Items) validates offline with 0 broken links, and all 24 asset checksums match. GitHub Pages hosting is **not yet verified**, so no streaming or browse link is claimed. Details, metadata sources, hosting checks and limitations are in [`docs/distribution.md`](docs/distribution.md).
+
 ## Quality policy
 
 - **Usable SCL classes:** 4 (vegetation), 5 (not vegetated), 6 (water). Everything else is excluded. This is a conservative project policy, and SCL is **not** a verified ground-truth cloud mask.
@@ -163,7 +175,10 @@ notebooks/demo_colab.ipynb thin notebook calling the package
 examples/                  small v0.2 reference outputs: frozen manifest, QA table, panels, benchmark results
 reference/v0.2/            full v0.2 results archive (GeoTIFFs included) used by `deltawatch compare`
 config/eval_new_aoi_2026.yaml, evaluations/new_aoi_2026/   separate v0.4 evaluation on a new AOI and season
+config/distribution.yaml, src/deltawatch/distribution/, docs/distribution.md   COG + STAC distribution layer (unreleased)
+reports/distribution/      committed COG validation, equality and catalog validation reports
 .github/workflows/ci.yml   GitHub Actions definition: lint + offline tests on Python 3.11-3.13
+.github/workflows/pages.yml  manual-only workflow that rebuilds and deploys the catalog to GitHub Pages
 ```
 
 ## Known limitations and failure modes
@@ -186,6 +201,8 @@ The question in v1 is whether the data are handled correctly, not which model is
 - [x] Milestone 4: locked past-only temporal gap-filling benchmark (results above)
 - [x] v0.3: real repository layout, benchmark input validation, results-preservation check
 - [x] v0.4: CI workflow in its proper path, float tolerance in the QA comparison, separate new-AOI 2026 evaluation
+- [x] Distribution layer (unreleased): validated COGs with equality proof, static STAC catalog, local query service
+- [ ] Distribution hosting: GitHub Pages Range/CORS check on the live site, then the STAC Browser link
 - [ ] GitHub Actions: the workflow is defined in `.github/workflows/ci.yml`. It has no recorded run yet, so no CI status is claimed here
 
 ## Data, attribution and license
